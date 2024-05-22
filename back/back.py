@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from datetime import datetime
 from pydantic import BaseModel
+import requests
 
 app = FastAPI()
 
@@ -13,8 +14,10 @@ class StatisticsResponse(BaseModel):
 async def get_time():
     global time_request_count
     time_request_count += 1
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return {"current_time": current_time}
+    request = requests.get('http://worldtimeapi.org/api/timezone/Europe/Moscow')
+    if request.status_code == 200:
+        return request.json()['datetime']
+    return 'error'
 
 @app.get("/statistics", response_model=StatisticsResponse)
 async def get_statistics():

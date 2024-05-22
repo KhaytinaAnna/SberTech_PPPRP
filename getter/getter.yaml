@@ -19,7 +19,7 @@ spec:
         image: <USER>/getter:latest
         env:
         - name: BACK_HOST
-          value: "back-service"
+          value: "back-service.default.svc.cluster.local"
         volumeMounts:
         - name: getter-storage
           mountPath: /app/data

@@ -23,7 +23,19 @@ function cicd {
 }
 
 cicd back
-kubectl apply -f ./getter/mounts.yaml
 cicd getter
+kubectl apply -f ./getter/mounts.yaml
 
 
+
+if ! command -v istioctl &> /dev/null; then
+    chmod +x istio/install.sh; ./istio/install.sh
+fi
+
+
+kubectl apply -f ./istio/service-entry.yaml
+if ! command -v minicube &> /dev/null; then
+    kubectl apply -f ./istio/service.yaml
+elif
+    kubectl apply -f ./istio/gateway.yaml
+fi

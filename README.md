@@ -9,18 +9,21 @@ http://back-service/time
 - если запуск был через микуб:
 
 ```
-http://<minikube ip>:30003/time
+export INGRESS_HOST=$(minikube ip)
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+http://$INGRESS_HOST:$INGRESS_PORT/time
 ```
 
 - если запуск был в классическом кубе :
 
 ```
-http://<node ip>:30003/time
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+http://<node ip>:$INGRESS_PORT/time
 ```
 
 ## Пререквизиты:
 для работы скрипта необходимо выполнить следующие шаги:
-- подставить переменный в bash.sh 
+- подставить переменныe в bash.sh 
 ```
 USER=
 TOKEN=

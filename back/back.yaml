@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,8 +31,5 @@ spec:
   selector:
     app: back
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
-    nodePort: 30003
-  type: NodePort
+  - port: 8000
+    targetPort: 8000
