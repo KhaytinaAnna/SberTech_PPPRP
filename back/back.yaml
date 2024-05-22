@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+  labels:
+    app: back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back
+  template:
+    metadata:
+      labels:
+        app: back
+    spec:
+      containers:
+      - name: back
+        image: <USER>/back:latest
+        ports:
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: my-docker-registry-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-service
+spec:
+  selector:
+    app: back
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+    nodePort: 30003
+  type: NodePort

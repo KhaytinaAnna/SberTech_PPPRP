@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getter-deployment
+  labels:
+    app: getter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: getter
+  template:
+    metadata:
+      labels:
+        app: getter
+    spec:
+      containers:
+      - name: getter
+        image: <USER>/getter:latest
+        env:
+        - name: BACK_HOST
+          value: "back-service"
+        volumeMounts:
+        - name: getter-storage
+          mountPath: /app/data
+      imagePullSecrets:
+      - name: my-docker-registry-secret
+      volumes:
+      - name: getter-storage
+        persistentVolumeClaim:
+          claimName: getter-pvc
