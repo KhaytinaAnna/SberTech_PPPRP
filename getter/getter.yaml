@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: getter
-        image: <USER>/getter:latest
+        image: khaytinaanna/getter:latest
         env:
         - name: BACK_HOST
           value: "back-service.default.svc.cluster.local"

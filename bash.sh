@@ -1,7 +1,7 @@
 #!/bin/bash
-USER=
-TOKEN=
-EMAIL=
+USER=khaytinaanna
+TOKEN=dckr_pat_fSzD2Ur86RFQJW36JJkGuOcXIHs
+EMAIL=annakhaytina02@gmail.com
 
 docker login -u $USER -p $TOKEN
 
@@ -28,14 +28,17 @@ kubectl apply -f ./getter/mounts.yaml
 
 
 
-if ! command -v istioctl &> /dev/null; then
+if [ -d "istio-1.22.0" ]; then
+    echo ''
+else
     chmod +x istio/install.sh; ./istio/install.sh
 fi
 
-
+echo 'y' | istioctl install --set profile=default --set values.global.proxy.privileged=true --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
+kubectl label namespace default istio-injection=enabled
 kubectl apply -f ./istio/service-entry.yaml
 if ! command -v minicube &> /dev/null; then
     kubectl apply -f ./istio/service.yaml
-elif
+else
     kubectl apply -f ./istio/gateway.yaml
 fi

@@ -4,7 +4,8 @@ import os
 
 back_host = os.getenv("BACK_HOST", default="localhost")
 url = "http://" + back_host + ":8000/statistics"
-output_file = "statistics_log.txt"
+os.makedirs('/app/data', exist_ok=True)
+output_file = "/app/data/statistics_log.txt"
 
 def log_statistics():
 
