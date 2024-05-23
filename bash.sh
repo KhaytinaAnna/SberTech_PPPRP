@@ -1,7 +1,7 @@
 #!/bin/bash
-USER=khaytinaanna
-TOKEN=dckr_pat_fSzD2Ur86RFQJW36JJkGuOcXIHs
-EMAIL=annakhaytina02@gmail.com
+USER=
+TOKEN=
+EMAIL=
 
 docker login -u $USER -p $TOKEN
 

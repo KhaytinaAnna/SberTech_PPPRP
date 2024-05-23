@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: back
-        image: khaytinaanna/back:latest
+        image: <USER>/back:latest
         ports:
         - containerPort: 8000
       imagePullSecrets:
